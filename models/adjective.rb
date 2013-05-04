@@ -1,9 +1,9 @@
 class Adjective
-	attr_accessor :id
-	attr_accessor :name
+	include DataMapper::Resource
 
-	def initialize(id, name)
-		@id = id
-		@name = name
-	end
+	property :id, Serial
+	property :name, String
+	property :created_at, DateTime, :default => DateTime.now
+
+	has n, :ratings
 end

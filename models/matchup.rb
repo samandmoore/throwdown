@@ -1,18 +1,14 @@
 class Matchup
-	attr_accessor :id
-	attr_accessor :nounA_id
-	attr_accessor :nounB_id
-	attr_accessor :adjective_id
-	attr_accessor :winner_id
-	attr_accessor :nounA_delta
-	attr_accessor :nounB_delta
+	include DataMapper::Resource
 
-	def initialize(nounA_id, nounB_id, adjective_id, winner_id, nounA_delta, nounB_delta)
-		@nounA_id = nounA_id
-		@nounB_id = nounB_id
-		@adjective_id = adjective_id
-		@winner_id = winner_id
-		@nounA_delta = nounA_delta
-		@nounB_delta = nounB_delta
-	end
+	property :id, Serial
+	property :created_at, DateTime, :default => DateTime.now
+	
+	property :nounA_delta, Integer
+	property :nounB_delta, Integer
+
+	belongs_to :adjective
+	belongs_to :winner, 'Noun'
+	belongs_to :nounA, 'Noun'
+	belongs_to :nounB, 'Noun'
 end

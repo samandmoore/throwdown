@@ -1,12 +1,10 @@
 class Rating
-	attr_accessor :score
-	attr_accessor :noun_id
-	attr_accessor :adjective_id
-	attr_accessor :matchup_id
+	include DataMapper::Resource
 
-	def initialize(score, noun_id, adjective_id)
-		@score = score
-		@noun_id = noun_id
-		@adjective_id = adjective_id
-	end
+	property :id, Serial
+	property :score, Integer
+
+	belongs_to :noun
+	belongs_to :matchup
+	belongs_to :adjective
 end

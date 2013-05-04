@@ -1,9 +1,9 @@
 class Noun
-	attr_accessor :name
-	attr_accessor :id
+	include DataMapper::Resource
+	
+	property :id, Serial
+	property :name, String
+	property :created_at, DateTime, :default => DateTime.now
 
-	def initialize(id, name)
-		@id = id
-		@name = name
-	end
+	has n, :ratings
 end

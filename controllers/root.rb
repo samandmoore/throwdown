@@ -5,10 +5,17 @@ class Application < Sinatra::Base
 	get '/' do
 		@title = 'Home'
 
-		@nounA = Noun.new(1, 'Laura')
-		@nounB = Noun.new(2, 'Sam')
+		@nounA = Noun.first_or_create(
+			:name => 'Laura'
+		)
+		
+		@nounB = Noun.first_or_create(
+			:name => 'Sam'
+		)
 
-		@adjective = Adjective.new(1, 'blue')
+		@adjective = Adjective.first_or_create(
+			:name => 'Blue'
+		)
 
 		haml :index
 	end
