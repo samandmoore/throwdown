@@ -1,6 +1,6 @@
 class Application < Sinatra::Base
 
-	get '/ratings/new' do
+	post '/ratings/new' do
 		# load noun a
 		# load noun b
 		# load adjective

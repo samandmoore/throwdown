@@ -4,11 +4,12 @@ class Application < Sinatra::Base
 	# Root path
 	get '/' do
 		@title = 'Home'
-		# @nounA = Noun.new('Noun A')
 
-		@adjective = 'blue'
-		
-		
+		@nounA = Noun.new(1, 'Laura')
+		@nounB = Noun.new(2, 'Sam')
+
+		@adjective = Adjective.new(1, 'blue')
+
 		haml :index
 	end
 

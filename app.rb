@@ -12,10 +12,16 @@ class Application < Sinatra::Base
 
 	# libs
 	# require File.dirname(__FILE__) + '/lib/global.rb'
-	require File.dirname(__FILE__) + '/models/noun.rb'
 
-	# routes
-	require File.dirname(__FILE__) + '/controllers/root.rb'
+	# models, require all models
+	Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |file| 
+		require file
+	}
+
+	# routes, require all controllers
+	Dir[File.dirname(__FILE__) + '/controllers/*.rb'].each { |file| 
+		require file
+	}
 
 	# explicitly setup public director for serving static files, optional
 	set :public_folder, File.dirname(__FILE__) + '/public'

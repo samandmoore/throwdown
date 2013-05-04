@@ -6,8 +6,9 @@
 	%h1 Throwdown! It's a downright battle
 	%p We'll give you 2 nouns and 1 adjective, you pick the winner.
 
-	#matchup
-		%p 
-			%button noun A
-			%strong= @adjective
-			%button noun B
+	%form#matchup(method="POST" action="/ratings/new")
+		%input(id="adjective_id" type="hidden" value="#{@adjective.id}")
+		%p
+			%button(type="submit" name="winner_id" value="#{@nounA.id}")= @nounA.name
+			%strong= @adjective.name
+			%button(type="submit" name="winner_id" value="#{@nounB.id}")= @nounB.name
