@@ -1,19 +1,20 @@
 require 'rubygems'
 require 'bundler/setup'
-require 'sinatra/base'
-require 'data_mapper'
-require 'dm-migrations'
 Bundler.require
 
 class Application < Sinatra::Base
 	register Sinatra::Flash
+	register Sinatra::ConfigFile
+
+	config_file "#{Dir.pwd}/config.yml"
 
 	puts "=> app is running in #{settings.environment} env"
 
 	# db configuration
 	DataMapper::Logger.new($stdout, :debug)
-	DataMapper.setup(:default, "sqlite://#{Dir.pwd}/throwdown.db")
-
+	DataMapper.setup(:default, "sqlite://#{Dir.pwd}/#{settings.db_name}.db")
+	DataMapper::Model.raise_on_save_failure = true
+	
 	# enable :sessions
 
 	# libs
@@ -33,6 +34,6 @@ class Application < Sinatra::Base
 		require file
 	}
 
-	# explicitly setup public director for serving static files, optional
+	# explicitly setup public directory for serving static files, optional
 	set :public_folder, File.dirname(__FILE__) + '/public'
 end

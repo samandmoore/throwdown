@@ -5,6 +5,5 @@ class Rating
 	property :score, Integer
 
 	belongs_to :noun
-	belongs_to :matchup
 	belongs_to :adjective
 end

@@ -2,53 +2,55 @@ class Application < Sinatra::Base
 
 	post '/ratings/new' do
 		nounA = Noun.get(params[:nounA_id])
-		nounB = Noun.get(params[:nounA_id])
+		nounB = Noun.get(params[:nounB_id])
 		adjective = Adjective.get(params[:adjective_id])
-		ratings = Rating.all(:adjective_id => adjective.id, :noun_id => [nounA.id, nounB.id])
+
+		ratingA = Rating.first(:adjective_id => adjective.id, :noun_id => nounA.id) || Rating.new(:adjective => adjective, :noun => nounA, :score => 1000)
+		ratingB = Rating.first(:adjective_id => adjective.id, :noun_id => nounB.id) || Rating.new(:adjective => adjective, :noun => nounB, :score => 1000)
 
 		# compute the new ratings for nouns
-		matchup = computeRatings(adjective, ratings, params[:winner_id])
+		matchup = computeRatings(adjective, ratingA, ratingB, params[:winner_id])
 
 		# update nouns' ratings
 		matchup.save
-		ratings[0].save
-		ratings[1].save
+		ratingA.save
+		ratingB.save
 
 		redirect '/'
 	end
 
 	# todo: move this to some object-oriented service thingy
-	def computeRatings(adjective, ratings, winner)
+	def computeRatings(adjective, ratingA, ratingB, winner)
 		# constants
 		k = 32
 
 		# who won?
-		resultA = ratings[0].noun.id == winner ? 1 : 0
-		resultB = ratings[1].noun.id == winner ? 1 : 0
+		resultA = ratingA.noun.id == winner ? 1 : 0
+		resultB = ratingB.noun.id == winner ? 1 : 0
 
 		# sort out the current ratings
-		ratingA = ratings[0].score
-		ratingB = ratings[1].score
+		scoreA = ratingA.score
+		scoreB = ratingB.score
 
 		# determine expectations
-		expectationA = 1 / (1 + 10 ** ((ratingB - ratingA) / 400))
-		expectationB = 1 / (1 + 10 ** ((ratingA - ratingB) / 400))
+		expectationA = 1 / (1 + 10 ** ((scoreB - scoreA) / 400))
+		expectationB = 1 / (1 + 10 ** ((scoreA - scoreB) / 400))
 
 		# compute new ratings
-		ratingA = ratingA + k * (resultA - expectationA)
-		ratingB = ratingB + k * (resultB - expectationB)
+		scoreA = scoreB + k * (resultA - expectationA)
+		scoreB = scoreA + k * (resultB - expectationB)
 
 		matchup = Matchup.new(
-			:nounA => ratings[0].noun,
-			:nounB => ratings[1].noun,
-			:winner => resultA == 1 ? ratings[0].noun : ratings[1].noun,
+			:nounA => ratingA.noun,
+			:nounB => ratingB.noun,
+			:winner => resultA == 1 ? ratingA.noun : ratingB.noun,
 			:adjective => adjective,
-			:nounA_delta => ratingA - ratings[0].score,
-			:nounB_delta => ratingB - ratings[1].score
+			:nounA_delta => scoreA - ratingA.score,
+			:nounB_delta => scoreB - ratingB.score
 		)
 
-		ratings[0].score = ratingA
-		ratings[1].score = ratingB
+		ratingA.score = scoreA
+		ratingB.score = scoreB
 
 		matchup
 	end
