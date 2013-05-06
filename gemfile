@@ -5,5 +5,17 @@ gem 'sinatra-contrib', :require => 'sinatra/config_file'
 gem 'haml'
 gem 'rake'
 gem 'data_mapper'
-gem 'dm-sqlite-adapter'
 gem 'dm-migrations'
+
+group :development do
+	gem 'dm-sqlite-adapter'
+end
+
+group :test do
+	gem 'dm-sqlite-adapter'
+	# gem 'rack-test'
+end
+
+group :production do
+	# gem 'dm-postgres-adapter'
+end
