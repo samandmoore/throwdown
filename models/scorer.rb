@@ -9,6 +9,7 @@ class Scorer
 		scores = compute_ratings(winner.score, loser.score)
 
 		matchup = Matchup.new(
+			:universe => winner.universe,
 			:nounA => winner.noun,
 			:nounB => loser.noun,
 			:winner => winner.noun,

@@ -5,16 +5,23 @@ class Application < Sinatra::Base
 	get '/' do
 		@title = 'Home'
 
+		@universe = Universe.first_or_create(
+			:name => 'Default'
+		)
+
 		@nounA = Noun.first_or_create(
-			:name => 'Laura'
+			:name => 'Laura',
+			:universe => @universe
 		)
 		
 		@nounB = Noun.first_or_create(
-			:name => 'Sam'
+			:name => 'Sam',
+			:universe => @universe
 		)
 
 		@adjective = Adjective.first_or_create(
-			:name => 'Blue'
+			:name => 'Blue',
+			:universe => @universe
 		)
 
 		haml :index
