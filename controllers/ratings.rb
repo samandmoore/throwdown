@@ -17,6 +17,7 @@ class Application < Sinatra::Base
 		ratingA.save
 		ratingB.save
 
+		flash[:info] = "Rating recorded!"
 		redirect '/'
 	end
 

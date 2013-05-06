@@ -34,7 +34,7 @@ class Application < Sinatra::Base
 		@title = '404'
 		@code = 404
 		@message = 'Page not found'
-		erb :error
+		haml :error
 	end
 
 	# General error
@@ -42,6 +42,6 @@ class Application < Sinatra::Base
 		@title = '500'
 		@code = 500
 		@message = 'An unknown error has occurred'
-		erb :error
+		haml :error
 	end
 end

@@ -8,7 +8,7 @@ class Application < Sinatra::Base
 
 	config_file "#{Dir.pwd}/config.yml"
 
-	puts "=> app is running in #{settings.environment} env"
+	puts "=> app is running in #{settings.environment} environment"
 
 	enable :sessions
 

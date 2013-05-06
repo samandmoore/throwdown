@@ -1,16 +1,11 @@
-!!! 5
-%head
-	%title Throwdown
 
-%body
-	%h1 Throwdown! It's a downright battle
-	%p We'll give you 2 nouns and 1 adjective, you pick the winner.
+%p We'll give you 2 nouns and 1 adjective, you pick the winner.
 
-	%form#matchup(method="POST" action="/ratings/new")
-		%input(name="adjective_id" type="hidden" value="#{@adjective.id}")
-		%input(name="nounA_id" type="hidden" value="#{@nounA.id}")
-		%input(name="nounB_id" type="hidden" value="#{@nounB.id}")
-		%p
-			%button(type="submit" name="winner_id" value="#{@nounA.id}")= @nounA.name
-			%strong= @adjective.name
-			%button(type="submit" name="winner_id" value="#{@nounB.id}")= @nounB.name
+%form#matchup(method="POST" action="/ratings/new")
+	%input(name="adjective_id" type="hidden" value="#{@adjective.id}")
+	%input(name="nounA_id" type="hidden" value="#{@nounA.id}")
+	%input(name="nounB_id" type="hidden" value="#{@nounB.id}")
+	%p
+		%button(type="submit" name="winner_id" value="#{@nounA.id}")= @nounA.name
+		%strong= @adjective.name
+		%button(type="submit" name="winner_id" value="#{@nounB.id}")= @nounB.name
