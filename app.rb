@@ -40,4 +40,6 @@ class Application < Sinatra::Base
 	Dir[File.dirname(__FILE__) + '/controllers/*.rb'].each do |file|
 		require file
 	end
+
+	require_relative 'lib/helpers'
 end

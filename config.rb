@@ -14,7 +14,7 @@ images_dir      = File.join('public', 'css', 'images')
 javascripts_dir = File.join('public', 'js')
 
 # Syntax preference
-preferred_syntax = :sass
+preferred_syntax = :scss
 
 # To enable relative paths to assets via compass helper functions. Uncomment:
 relative_assets = true

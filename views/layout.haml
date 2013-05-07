@@ -1,18 +1,27 @@
 !!! 5
 %html
 	%head
+		%meta(name="viewport" content="width=device-width, initial-scale=1.0")
 		%title Throwdown
 		%link(rel="stylesheet" href="css/site.css")
 	%body
-		#wrapper
-			=styled_flash
-			#header
-				%h1 Throwdown
-				%h2 A Simple Comparison app
+		.container-narrow
+			.masthead
+				%ul.nav.nav-pills.pull-right
+					%li.active
+						%a(href="/") Home
+				
+				%h3.muted Throwdown
 
-			#content
-				=yield
+				%hr
 
-			#footer
-				%p
-					Sam Moore &copy; 2013
+				=show_alert
+
+				.row-fluid
+					=yield
+
+				%hr
+
+				%footer.footer
+					%p
+						&copy; Sam Moore 2013
