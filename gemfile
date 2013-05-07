@@ -14,6 +14,7 @@ end
 
 group :test do
 	gem 'dm-sqlite-adapter'
+	gem 'rspec'
 	# gem 'rack-test'
 end
 
@@ -21,6 +22,6 @@ group :production do
 	# gem 'dm-postgres-adapter'
 end
 
-group :imports do
+group :import do
 	gem 'flickraw'
 end
