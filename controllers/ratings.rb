@@ -5,8 +5,8 @@ class Application < Sinatra::Base
 		nounB = Noun.get(params[:nounB_id])
 		adjective = Adjective.get(params[:adjective_id])
 
-		ratingA = Rating.first(:adjective_id => adjective.id, :noun_id => nounA.id) || Rating.new(:adjective => adjective, :noun => nounA, :score => 1000, :universe_id => 1)
-		ratingB = Rating.first(:adjective_id => adjective.id, :noun_id => nounB.id) || Rating.new(:adjective => adjective, :noun => nounB, :score => 1000, :universe_id => 1)
+		ratingA = Rating.first(:adjective_id => adjective.id, :noun_id => nounA.id) || Rating.new(:adjective => adjective, :noun => nounA, :score => Rating::InitialScore, :universe_id => 1)
+		ratingB = Rating.first(:adjective_id => adjective.id, :noun_id => nounB.id) || Rating.new(:adjective => adjective, :noun => nounB, :score => Rating::InitialScore, :universe_id => 1)
 
 		# compute the new ratings for nouns
 		scorer = Scorer.new()
