@@ -7,6 +7,8 @@ gem 'rake'
 gem 'data_mapper'
 gem 'dm-migrations'
 gem 'colorize'
+gem 'compass'
+gem 'bootstrap-sass'
 
 group :development do
 	gem 'dm-sqlite-adapter'

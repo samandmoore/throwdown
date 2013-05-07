@@ -13,3 +13,5 @@ test/version_tmp
 tmp
 *.db
 .DS_Store
+.sass-cache/
+public/css/
