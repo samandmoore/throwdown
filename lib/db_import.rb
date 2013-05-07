@@ -22,11 +22,14 @@ class DbImport
 			puts "Added `#{noun[:name]}` noun to database".green
 		end
 
-		['Brown', 'Blue', 'Black', 'White', 'Red'].each do |adj|
+		['Brown', 'Blue', 'Black', 'White', 'Red', 
+		'Small', 'Medium', 'Large', 'Lame', 'Cool', 
+		'Fast', 'Slow', 'Boring'].each do |adj|
 			Adjective.first_or_create(
 				:name => adj,
-				:universe => universe
+				:universe_id => 1
 			)
+
 			puts "Added `#{adj}` adjective to database".green
 		end
 	end
