@@ -2,6 +2,8 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require
 
+task :default => 'dev:start'
+
 # Development server management
 namespace :dev do
 	desc 'Start in development mode'
