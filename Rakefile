@@ -60,9 +60,9 @@ namespace :db do
 	end
 end
 
-namespace :imports do
+namespace :import do
 	desc 'Import some data from flickr'
-	task :data_from_flickr => ['db:upgrade', 'db:populate'] do
+	task :flickr => ['db:upgrade', 'db:populate'] do
 		require File.dirname(__FILE__) + '/lib/flickr_import'
 
 		puts "Starting import from Flickr".yellow
