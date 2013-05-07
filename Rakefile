@@ -13,7 +13,7 @@ end
 namespace :db do
 	desc 'Auto-migrate the database (destroys data)'
 	task :migrate do
-		puts "Bootstrapping database (destroys data)..."
+		puts "Bootstrapping database (destroys data)...".yellow
 		
 		Bundler.require(:development)
 		DataMapper::Logger.new($stdout, :debug)
@@ -31,7 +31,7 @@ namespace :db do
 
 	desc 'Auto-upgrade the database (preserves data)'
 	task :upgrade do
-		puts "Upgrading database (preserves data)..."
+		puts "Upgrading database (preserves data)...".yellow
 
 		Bundler.require(:development)
 		DataMapper::Logger.new($stdout, :debug)
@@ -49,41 +49,27 @@ namespace :db do
 
 	desc 'Populate the database with default data'
 	task :populate => [:upgrade] do
-		puts "Populating the database with default data"
+		require File.dirname(__FILE__) + '/lib/db_import'
 
-		universe = Universe.first_or_create(
-			:name => 'Default'
-		)
+		puts "Populating the database with default data".yellow
 
-		[{:name => 'Josie', :image_url => '/images/josie.jpg'},
-		{:name => 'Kacie', :image_url => '/images/kacie.jpg'},
-		{:name => 'Tucker', :image_url => '/images/tucker.jpg'},
-		{:name => 'Scout', :image_url => '/images/scout.jpg'}].each do |noun|
-			Noun.first_or_create(
-				:name => noun[:name],
-				:image_url => noun[:image_url],
-				:image_src => :local,
-				:universe => universe
-			)
-		end
+		db_importer = DbImport.new()
+		db_importer.run()
 
-		['Brown', 'Blue', 'Black', 'White', 'Red'].each do |adj|
-			Adjective.first_or_create(
-				:name => adj,
-				:universe => universe
-			)
-		end
+		puts "Imported nouns and adjectives into database".green
 	end
 end
 
 namespace :imports do
 	desc 'Import some data from flickr'
 	task :data_from_flickr => ['db:upgrade'] do
-		require File.dirname(__FILE__) + '/../lib/flickr_import'
+		require File.dirname(__FILE__) + '/lib/flickr_import'
 
-		puts "Starting import from Flickr"
+		puts "Starting import from Flickr".yellow
+		
 		flickr_importer = FlickrImport.new()
 		results = flickr_importer.run()
-		puts "Imported from Flickr #{} adjectives, #{} nouns"
+		
+		puts "Imported from Flickr #{} adjectives, #{} nouns".green
 	end
 end

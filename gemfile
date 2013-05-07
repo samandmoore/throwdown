@@ -6,6 +6,7 @@ gem 'haml'
 gem 'rake'
 gem 'data_mapper'
 gem 'dm-migrations'
+gem 'colorize'
 
 group :development do
 	gem 'dm-sqlite-adapter'
