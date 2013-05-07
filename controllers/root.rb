@@ -3,25 +3,26 @@ class Application < Sinatra::Base
 
 	# Root path
 	get '/' do
-		@title = 'Home'
-
-		@universe = Universe.first_or_create(
+		@universe = Universe.first(
 			:name => 'Default'
 		)
 
-		@nounA = Noun.first_or_create(
-			:name => 'Laura',
-			:universe => @universe
+		noun_count = Noun.count(:universe => @universe)
+		adj_count = Adjective.count(:universe => @universe)
+
+		@nounA = Noun.first(
+			:universe => @universe,
+			:offset => rand(noun_count)
 		)
 		
-		@nounB = Noun.first_or_create(
-			:name => 'Sam',
-			:universe => @universe
+		@nounB = Noun.first(
+			:universe => @universe,
+			:offset => rand(noun_count)
 		)
 
-		@adjective = Adjective.first_or_create(
-			:name => 'Blue',
-			:universe => @universe
+		@adjective = Adjective.first(
+			:universe => @universe,
+			:offset => rand(adj_count)
 		)
 
 		haml :index

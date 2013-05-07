@@ -28,16 +28,16 @@ class Application < Sinatra::Base
 	end
 
 	# models, require all models
-	Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |file| 
+	Dir[File.dirname(__FILE__) + '/models/*.rb'].each do |file|
 		require file
-	}
+	end
 
 	# models loaded, finalize db
 	DataMapper.finalize
-	DataMapper.auto_migrate!
+	DataMapper.auto_upgrade!
 
 	# routes, require all controllers
-	Dir[File.dirname(__FILE__) + '/controllers/*.rb'].each { |file| 
+	Dir[File.dirname(__FILE__) + '/controllers/*.rb'].each do |file|
 		require file
-	}
+	end
 end

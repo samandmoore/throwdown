@@ -19,3 +19,7 @@ end
 group :production do
 	# gem 'dm-postgres-adapter'
 end
+
+group :imports do
+	gem 'flickraw'
+end

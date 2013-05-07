@@ -54,6 +54,7 @@ GEM
       data_objects (= 0.10.12)
     eventmachine (1.0.3)
     fastercsv (1.5.5)
+    flickraw (0.9.6)
     haml (4.0.2)
       tilt
     json (1.7.7)
@@ -89,6 +90,7 @@ DEPENDENCIES
   data_mapper
   dm-migrations
   dm-sqlite-adapter
+  flickraw
   haml
   rake
   sinatra
