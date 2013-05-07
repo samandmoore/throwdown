@@ -6,6 +6,8 @@
 	%input(name="nounA_id" type="hidden" value="#{@nounA.id}")
 	%input(name="nounB_id" type="hidden" value="#{@nounB.id}")
 	%p
-		%button(type="submit" name="winner_id" value="#{@nounA.id}")= @nounA.name
+		%button(type="submit" name="winner_id" value="#{@nounA.id}")
+			%img(src="#{@nounA.image_url}" width="200" title="#{@nounA.name}")
 		%strong= @adjective.name
-		%button(type="submit" name="winner_id" value="#{@nounB.id}")= @nounB.name
+		%button(type="submit" name="winner_id" value="#{@nounB.id}")
+			%img(src="#{@nounB.image_url}" width="200" title="#{@nounB.name}")

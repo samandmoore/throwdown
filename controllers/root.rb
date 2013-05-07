@@ -15,10 +15,12 @@ class Application < Sinatra::Base
 			:offset => rand(noun_count)
 		)
 		
-		@nounB = Noun.first(
-			:universe => @universe,
-			:offset => rand(noun_count)
-		)
+		begin
+			@nounB = Noun.first(
+				:universe => @universe,
+				:offset => rand(noun_count)
+			)
+		end while(@nounB.id == @nounA.id)
 
 		@adjective = Adjective.first(
 			:universe => @universe,

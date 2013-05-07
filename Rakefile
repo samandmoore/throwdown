@@ -2,6 +2,14 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require
 
+# Development server management
+namespace :dev do
+	desc 'Start in development mode'
+	task :start => ['db:populate'] do
+		system 'rackup -p 1234'
+	end
+end
+
 namespace :db do
 	desc 'Auto-migrate the database (destroys data)'
 	task :migrate do
