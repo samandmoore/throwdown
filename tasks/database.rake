@@ -3,36 +3,30 @@ namespace :db do
 	task :migrate do
 		puts "Bootstrapping database (destroys data)...".yellow
 		
-		Bundler.require(:development)
-		DataMapper::Logger.new($stdout, :debug)
-		DataMapper.setup(:default, "sqlite://#{Throwdown::Root}/throwdown.db")
-		DataMapper::Model.raise_on_save_failure = true
-
 		# models, require all models
 		Dir[Throwdown::Root + '/models/*.rb'].each do |file|
 			require file
 		end
 
-		DataMapper.finalize
-		DataMapper.auto_migrate!
+		# models loaded, configure db
+		require_relative '../lib/db_config'
+		Throwdown::Database.configure()
+		Throwdown::Database.init(true)
 	end
 
 	desc 'Auto-upgrade the database (preserves data)'
 	task :upgrade do
 		puts "Upgrading database (preserves data)...".yellow
 
-		Bundler.require(:development)
-		DataMapper::Logger.new($stdout, :debug)
-		DataMapper.setup(:default, "sqlite://#{Throwdown::Root}/throwdown.db")
-		DataMapper::Model.raise_on_save_failure = true
-
-		# models, require all models
+				# models, require all models
 		Dir[Throwdown::Root + '/models/*.rb'].each do |file|
 			require file
 		end
 
-		DataMapper.finalize
-		DataMapper.auto_upgrade!
+		# models loaded, configure db
+		require_relative '../lib/db_config'
+		Throwdown::Database.configure()
+		Throwdown::Database.init()
 	end
 
 	desc 'Populate the database with default data'

@@ -6,8 +6,9 @@ module Throwdown
 				require file
 			end
 
-			# models loaded, finalize db
+			# models loaded, configure db
 			require_relative 'db_config'
+			Throwdown::Database.configure()
 			Throwdown::Database.init()
 
 			# routes, require all controllers
