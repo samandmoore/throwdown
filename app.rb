@@ -15,31 +15,7 @@ class Application < Sinatra::Base
 	# explicitly setup public directory for serving static files, optional
 	set :public_folder, File.dirname(__FILE__) + '/public'
 
-	configure :development do
-		Bundler.require(:development)
-		DataMapper::Logger.new($stdout, :debug)
-		DataMapper.setup(:default, "sqlite://#{Dir.pwd}/#{settings.db_name}.db")
-		DataMapper::Model.raise_on_save_failure = true
-	end
-
-	configure :production do
-		Bundler.require(:production)
-		DataMapper.setup(:default, ENV['DATABASE_URL'])
-	end
-
-	# models, require all models
-	Dir[File.dirname(__FILE__) + '/models/*.rb'].each do |file|
-		require file
-	end
-
-	# models loaded, finalize db
-	DataMapper.finalize
-	DataMapper.auto_upgrade!
-
-	# routes, require all controllers
-	Dir[File.dirname(__FILE__) + '/controllers/*.rb'].each do |file|
-		require file
-	end
-
-	require_relative 'lib/helpers'
+	# requires all models, routes, and database configuration
+	require_relative 'lib/bootstrap'
+	Throwdown::Bootstrapper.init(File.dirname(__FILE__))
 end
