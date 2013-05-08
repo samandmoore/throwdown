@@ -1,14 +1,20 @@
-%h4 The concept
+.hero-unit
+	%h2 The concept
 
-%p We'll give you 2 nouns and 1 adjective, you pick the winner.
+	%p Two nouns, One adjective; You pick the winner.
 
-%form#matchup(method="POST" action="/ratings/new")
-	%input(name="adjective_id" type="hidden" value="#{@adjective.id}")
-	%input(name="nounA_id" type="hidden" value="#{@nounA.id}")
-	%input(name="nounB_id" type="hidden" value="#{@nounB.id}")
-	%p
+	%form#matchup(method="POST" action="/ratings/new")
+		%input(name="adjective_id" type="hidden" value="#{@adjective.id}")
+		%input(name="nounA_id" type="hidden" value="#{@nounA.id}")
+		%input(name="nounB_id" type="hidden" value="#{@nounB.id}")
+
+		%p
+			Which is more
+			%strong= @adjective.name
+			?
+
 		%button(type="submit" name="winner_id" value="#{@nounA.id}")
-			%img(src="#{@nounA.image_url}" width="200" title="#{@nounA.name}")
-		%strong= @adjective.name
+			%img(src="#{@nounA.image_url}" width="200" title="#{@nounA.name}" class="img-polaroid")
+
 		%button(type="submit" name="winner_id" value="#{@nounB.id}")
-			%img(src="#{@nounB.image_url}" width="200" title="#{@nounB.name}")
+			%img(src="#{@nounB.image_url}" width="200" title="#{@nounB.name}" class="img-polaroid")
