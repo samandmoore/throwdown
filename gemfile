@@ -9,6 +9,8 @@ gem 'dm-migrations'
 gem 'colorize'
 gem 'compass'
 gem 'bootstrap-sass'
+gem 'aws-sdk'
+gem 'dm-paperclip-s3', :git => 'https://github.com/krzak/dm-paperclip-s3.git'
 
 group :development do
 	gem 'dm-sqlite-adapter'

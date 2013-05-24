@@ -1,7 +1,17 @@
+GIT
+  remote: https://github.com/krzak/dm-paperclip-s3.git
+  revision: 952906248e26f06c4c58590338987d03b35cf060
+  specs:
+    dm-paperclip-s3 (1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.2.8)
+    aws-sdk (1.10.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     backports (3.3.0)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.3.1.0)
@@ -70,6 +80,7 @@ GEM
     json (1.7.7)
     json_pure (1.7.7)
     multi_json (1.7.2)
+    nokogiri (1.5.9)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -106,11 +117,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk
   bootstrap-sass
   colorize
   compass
   data_mapper
   dm-migrations
+  dm-paperclip-s3!
   dm-sqlite-adapter
   flickraw
   haml

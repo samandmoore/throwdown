@@ -18,4 +18,11 @@ class Application < Sinatra::Base
 	# requires all models, routes, and database configuration
 	require_relative 'lib/bootstrap'
 	Throwdown::Bootstrapper.init(File.dirname(__FILE__))
+
+	Paperclip.configure do |config|
+		config.root = Dir.pwd
+		config.env = ENV['RACK_ENV']
+		config.use_dm_validations = true
+		config.processors_path = 'lib/pc' # relative path to look for processors, defaults to 'lib/paperclip_processors'
+	end
 end
